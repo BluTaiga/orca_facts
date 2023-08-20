@@ -1,0 +1,15 @@
+<h1>Just Orca Facts</h1>
+
+There are <%= @facts.count %> facts.
+
+<ul>
+  <% @facts.each do |fact| %>
+    <li>
+      <a href="<%= fact_path(fact) %>">
+        <%= fact.title %>
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Fact", new_fact_path %>
