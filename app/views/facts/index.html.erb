@@ -8,6 +8,9 @@ There are <%= @facts.count %> facts.
       <a href="<%= fact_path(fact) %>">
         <%= fact.title %>
       </a>
+      <a href="<%= edit_fact_path(fact) %>">
+        Edit
+      </a>
     </li>
   <% end %>
 </ul>

@@ -37,10 +37,11 @@ class FactsController < ApplicationController
 
     if @fact.update(fact_params)
       flash[:notice] = "Successfully updated fact!"
-      rediret_to fact_path(@fact)
+      redirect_to fact_path(@fact)
     else
       flash[:alert] = "Error updating fact!"
       render :edit, status: :unprocessable_entity
+    end
   end
 
   # Destroy action deletes the fact
