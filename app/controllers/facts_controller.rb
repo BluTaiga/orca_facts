@@ -28,10 +28,19 @@ class FactsController < ApplicationController
 
   # Edit action for editing fact
   def edit
+    @fact = Fact.find(params[:id])
   end
 
   # Update action updates the fact with the new information
   def update 
+    @fact = Fact.find(params[:id])
+
+    if @fact.update(fact_params)
+      flash[:notice] = "Successfully updated fact!"
+      rediret_to fact_path(@fact)
+    else
+      flash[:alert] = "Error updating fact!"
+      render :edit, status: :unprocessable_entity
   end
 
   # Destroy action deletes the fact
