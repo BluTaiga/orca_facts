@@ -1,12 +1,22 @@
 class FactsController < ApplicationController
+  before_action :getAllFacts, only: [:index, :destroy]
+
+  http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'], except: [:random_fact]
+  
   # Index action for showing all facts
   def index
-    @facts = Fact.all
+    getAllFacts
   end
 
   # Show action for showing a specific fact
   def show
     @fact = Fact.find(params[:id])
+  end
+
+  # Action for showing a random fact
+  def random_fact
+    @fact = Fact.order("RANDOM()").first
+    render :random_fact
   end
 
   # New action for creating fact
@@ -46,10 +56,19 @@ class FactsController < ApplicationController
 
   # Destroy action deletes the fact
   def destroy
+    @fact = Fact.find(params[:id])
+    @fact.destroy
+
+    flash[:notice] = "Successfully deleted fact!"
+    redirect_to facts_path
   end
 
   private
   def fact_params
     params.require(:fact).permit(:title, :body)
+  end
+
+  def getAllFacts
+    @facts = Fact.all
   end
 end

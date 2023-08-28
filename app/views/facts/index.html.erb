@@ -11,6 +11,11 @@ There are <%= @facts.count %> facts.
       <a href="<%= edit_fact_path(fact) %>">
         Edit
       </a>
+      <%= link_to "Delete", fact_path(fact), data: {
+        destroy: :delete,
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+      } %>
     </li>
   <% end %>
 </ul>
